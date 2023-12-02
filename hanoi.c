@@ -19,13 +19,14 @@ void inserir(int disco,int* torreIn, int* torreFi){
         if (torreIn[i] == disco){
             for(j = 0; j<discos;j++){
                 if (torreFi[j] == 0){
+                    printf("Mova o discod %d da pilha %c",disco,(procurarDisco(disco,torres))%3+65);
                     torreFi[j] = disco;
                     torreIn[i] = 0;
-                    printf("Passando o disco %d para a Torre %c\n",disco,(procurarDisco(disco,torres))%3+65);
+                    printf(" para a pilha %c\n",(procurarDisco(disco,torres))%3+65);
                     break;
                 }
             }
-        }
+        };
     }
 }
 
@@ -68,7 +69,4 @@ int main(){
     }
     hanoi(discos,torres,total);
 
-   /*for(i = 0; i <= discos; i++){
-        printf("Torre 1 %d\t Torre 2 %d\t Torre 3 %d\t\n",torres[0][discos - i],torres[1][discos - i],torres[2][discos - i]);
-    }*/
 }
