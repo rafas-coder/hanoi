@@ -19,7 +19,7 @@ void inserir(int disco,int* torreIn, int* torreFi){
         if (torreIn[i] == disco){
             for(j = 0; j<discos;j++){
                 if (torreFi[j] == 0){
-                    printf("Mova o discod %d da pilha %c",disco,(procurarDisco(disco,torres))%3+65);
+                    printf("Mova o disco %d da pilha %c",disco,(procurarDisco(disco,torres))%3+65);
                     torreFi[j] = disco;
                     torreIn[i] = 0;
                     printf(" para a pilha %c\n",(procurarDisco(disco,torres))%3+65);
@@ -32,24 +32,14 @@ void inserir(int disco,int* torreIn, int* torreFi){
 
 
 void hanoi(int discos, int** torres,int total){
-    if(discos == 2 && total % 2 == 1){
-        inserir(1, torres[procurarDisco(1,torres)],torres[(procurarDisco(1,torres)+2)%3]);
-        inserir(2,torres[procurarDisco(2,torres)],torres[(procurarDisco(2,torres)+1)%3]);
-        inserir(1, torres[procurarDisco(1,torres)],torres[(procurarDisco(1,torres)+2)%3]);
+    if(discos == 2){
+        inserir(1, torres[procurarDisco(1,torres)],torres[(procurarDisco(1,torres)+1+(total % 2))%3]);
+        inserir(2,torres[procurarDisco(2,torres)],torres[(procurarDisco(2,torres)+2-(total % 2))%3]);
+        inserir(1, torres[procurarDisco(1,torres)],torres[(procurarDisco(1,torres)+1+(total % 2))%3]);
     }
-    if(discos == 2 && total % 2 == 0){
-        inserir(1, torres[procurarDisco(1,torres)],torres[((procurarDisco(1,torres)+1))%3]);
-        inserir(2,torres[procurarDisco(2,torres)],torres[(procurarDisco(2,torres)+2)%3]);
-        inserir(1, torres[procurarDisco(1,torres)],torres[((procurarDisco(1,torres)+1))%3]);
-    }
-    if(total % 2 == discos % 2 && discos != 2){
+    if(discos != 2){
         hanoi(discos-1,torres,total);
-        inserir(discos, torres[procurarDisco(discos,torres)],torres[(procurarDisco(discos,torres)+2)%3]);
-        hanoi(discos-1,torres,total);
-    }
-    if(total % 2 != discos % 2  && discos != 2){
-        hanoi(discos-1,torres,total);
-        inserir(discos, torres[procurarDisco(discos,torres)],torres[(procurarDisco(discos,torres)+1)%3]);
+        inserir(discos, torres[procurarDisco(discos,torres)],torres[(procurarDisco(discos,torres)+1+(total % 2 == discos % 2))%3]);
         hanoi(discos-1,torres,total);
     }
 }
