@@ -43,23 +43,21 @@ void inserir(int disco,int* torreIn, int* torreFi){
 
 //A função seguinte resolve a torre de hanoi de forma recursiva de acordo com o número de discos
 void hanoi(int discos, int** torres,int total){
-    //Para caso base são os dois primeiros discos, que são movidos de acordo com seguinte lógica
-    //Se o total de discos for par, o disco 1 moverá duas torres, enquanto o disco 2 moverá
-    //apenas uma vez,já quando o total de discos é impar, o oposto ocorre
-    if(discos == 2){
-        inserir(1, torres[procurarDisco(1,torres)],torres[(procurarDisco(1,torres)+1+(total % 2))%3]);
-        inserir(2,torres[procurarDisco(2,torres)],torres[(procurarDisco(2,torres)+2-(total % 2))%3]);
-        inserir(1, torres[procurarDisco(1,torres)],torres[(procurarDisco(1,torres)+1+(total % 2))%3]);
-    }
-    //Para o caso geral,ocorre uma chamada recusiva para uma versão reduzida do problema,depois ocorre 
-    //uma inserção que obedece a seguinte lógica, caso total e o disco atual forem pares ou impares,
-    //o disco moverá duas torres,caso contrário moverá apenas uma torre,depois haberá uma outra chamada recursiva
-    //para finalizar a torre intermediaria ou final
-    if(discos != 2){
+    //Tanto o caso base quanto o geral faz uso das mesmas linhas de código, a diferença que o disco um
+    //não executa a chamada recursiva,dessa maneira o código tem a seguinte lógica,para montar a torre
+    //final na pilha C, ele monta uma torre intermediaria na pilha B, e para montar a torre intermediária
+    //na pilha B, ele monta uma torre interdiária na pilha C, e assim sucessivamente,no código isso se 
+    //demonstra da seguinte forma,quando o disco a ser movido é par e o total de discos também é par,
+    //ele move apenas uma torre, e quando o disco atual é impar, ele move duas torres,quando o total
+    //de discos é par o inverso acontece,por fim, a outra chamada recursiva desloca a torre interdiária
+    //para torre maior ou a torre final.
+        if(discos != 1){
         hanoi(discos-1,torres,total);
-        inserir(discos, torres[procurarDisco(discos,torres)],torres[(procurarDisco(discos,torres)+1+(total % 2 == discos % 2))%3]);
+        }
+        inserir(discos, torres[procurarDisco(discos,torres)],torres[(procurarDisco(discos,torres)+2-(total % 2 != discos % 2))%3]);
+        if(discos != 1){
         hanoi(discos-1,torres,total);
-    }
+        }
 }
 //A main faz a impressão dos primeiros caracteres, como também recebe o input
 //do usuário e para finalizar a alocação de memória e primeira chamada da 
@@ -76,5 +74,7 @@ int main(){
         torres[0][discos-i] = i; 
     }
     hanoi(discos,torres,total);
-
+    for(i = 0; i <= discos; i++){
+        printf("Torre 1 %d\t Torre 2 %d\t Torre 3 %d\t\n",torres[0][discos - i],torres[1][discos - i],torres[2][discos - i]);
+    }
 }
