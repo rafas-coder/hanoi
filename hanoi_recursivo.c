@@ -48,8 +48,8 @@ void hanoi(int discos, int** torres,int total){
     //final na pilha C, ele monta uma torre intermediaria na pilha B, e para montar a torre intermediária
     //na pilha B, ele monta uma torre interdiária na pilha C, e assim sucessivamente,no código isso se 
     //demonstra da seguinte forma,quando o disco a ser movido é par e o total de discos também é par,
-    //ele move apenas uma torre, e quando o disco atual é impar, ele move duas torres,quando o total
-    //de discos é par o inverso acontece,por fim, a outra chamada recursiva desloca a torre interdiária
+    //ele move apenas uma torre, e quando o disco atual é ímpar, ele move duas torres,e quando o total
+    //de discos é ímpar o inverso acontece,por fim, a outra chamada recursiva desloca a torre intermediária
     //para torre maior ou a torre final.
         if(discos != 1){
         hanoi(discos-1,torres,total);
